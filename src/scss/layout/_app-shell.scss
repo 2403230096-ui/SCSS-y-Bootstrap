@@ -1,0 +1,99 @@
+@use "../abstracts" as *;
+
+.app-shell {
+  --app-sidebar-width: #{$sidebar-width};
+
+  min-height: 100vh;
+
+  @include respond-to(lg) {
+    display: grid;
+    grid-template-columns: var(--app-sidebar-width) 1fr;
+    transition: grid-template-columns 0.2s ease;
+  }
+
+  // Reto 3: barra lateral compacta (solo iconos)
+  &--compact {
+    --app-sidebar-width: 4.5rem;
+  }
+
+  &__main {
+    min-width: 0;
+  }
+}
+
+.sidebar {
+  @include respond-to(lg) {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: rem(16px);
+    overflow: hidden;
+    background-color: var(--bs-tertiary-bg);
+    border-right: 1px solid var(--bs-border-color);
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: rem(4px);
+    width: 100%;
+  }
+
+  &__link {
+    display: flex;
+    gap: rem(10px);
+    align-items: center;
+    padding: rem(10px) rem(14px);
+    color: var(--bs-body-color);
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: var(--bs-border-radius);
+
+    &:hover {
+      background-color: rgba(var(--bs-primary-rgb), 0.08);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    .app-shell--compact & {
+      justify-content: center;
+      padding-inline: rem(10px);
+    }
+
+    &[aria-current="page"] {
+      font-weight: 600;
+      color: var(--bs-primary-text-emphasis);
+      background-color: rgba(var(--bs-primary-rgb), 0.12);
+    }
+  }
+
+  &__text {
+    .app-shell--compact & {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+  }
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: z(sticky);
+  display: flex;
+  gap: rem(12px);
+  align-items: center;
+  height: $topbar-height;
+  padding-inline: rem(16px);
+  background-color: rgba(var(--bs-body-bg-rgb), 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--bs-border-color);
+
+  &__search {
+    max-width: rem(320px);
+  }
+}
