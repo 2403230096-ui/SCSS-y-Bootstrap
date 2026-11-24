@@ -70,14 +70,21 @@
   }
 
   &__text {
-    .app-shell--compact & {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
+    @include respond-to(lg) {
+      .app-shell--compact & {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+      }
     }
   }
+  
+  .offcanvas-body {
+  flex-direction: column;
+  align-items: flex-start;
+}
 }
 
 .topbar {
